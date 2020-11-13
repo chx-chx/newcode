@@ -1,0 +1,198 @@
+3.3 常见图形绘制[*]
+    1.折线图 -- plt.plot
+        变化
+    2.散点图 -- plt.scatter()
+        分布规律
+    3.柱状图 -- plt.bar
+        统计、对比
+    4.直方图 -- plt.hist()
+        统计，分布
+    5.饼图 -- plt.pie()
+        占比
+4 Numpy
+4.1 Numpy优势
+    1.定义
+        开源的Python科学计算库，
+        用于快速处理任意维度的数组
+        Numpy中，存储对象是ndarray
+    2.创建
+        np.array([])
+    3.numpy的优势
+        内存块风格 -- 一体式存储
+        支持并行化运算
+        效率高于纯Python代码 -- 底层使用了C，内部释放了GIL
+4.2 N维数组-ndarray[**]
+    1.ndarray的属性
+        属性名字    属性解释
+        ndarray.shape   数组维度的元组
+        ndarray.ndim    数组维数
+        ndarray.size    数组中的元素数量
+        ndarray.itemsize    一个数组元素的长度（字节）
+        ndarray.dtype   数组元素的类型
+    2.ndarray的形状
+        np.array()
+            三维数组不好理解 -- excel中有多个sheet
+    3.ndarray的类型
+        bool
+        int
+        float
+        str
+        ...
+        注意：若不指定，整数默认int64，小数默认float64
+4.3 基本操作
+    1 生成数组的方法[**]
+        1.生成0和1的数组
+            np.ones()
+            np.ones_like()
+        2.从现有数组中生成
+            np.array -- 深拷贝
+            np.asarray -- 浅拷贝
+        3.生成固定范围数组
+            np.linspace()
+                nun -- 生成等间隔的多少个
+            np.arange()
+                step -- 每间隔多少生成数据
+            np.logspace()
+                生成以10的N次幂的数据
+        4 生成随机数组
+            1.均匀分布生成
+                np.random.uniform()
+                    low
+                    high
+                    size
+            2.正态分布[****]
+                均值，方差
+                均值 -- 图形的左右位置
+                方差 -- 图像是瘦，还是胖
+                    值越小，图形越瘦高，数据越集中
+                    值越大，图形越矮胖，数据越分散
+            3.正态分布api[***]
+                np.random.normal()
+                    low
+                    high
+                    size
+    2.数组的索引、切片[***]
+        直接索引
+        先对行进行索引，再进行列索引 -- [*, #]
+        高维数组索引，从宏观到微观
+    3.形状修改[**]
+        1.对象.reshape
+            不进行行列互换，产生新变量
+        2.对象.resize
+            不进行行列互换,对原值进行更改
+        3.对象.T
+            进行行列互换
+    4.类型修改[*]
+        对象.astype()
+    5.数组去重[*]
+        np.unique()
+4.4 ndarray运算[**]
+    1.逻辑运算
+        大于，小于直接进行判断
+        赋值：满足要求，直接进行赋值
+    2.通用判断函数
+        np.all()
+            所有满足要求，才返回True
+        np.any()
+            只要有一个满足要求，就返回True
+    3.三元运算符
+        np.where()
+            满足要求，赋值第一个值，否则赋值第二个值
+        np.logical_and()
+            并
+        np.logical_or()
+            或
+    4.统计运算
+        min
+        max
+        midian
+        mean
+        std -- 标准差
+        var -- 方差
+        argmax -- 最大值下标
+        argmin -- 最小值下标
+4.5 矩阵[*]
+    1.矩阵和向量
+        矩阵：理解-二维数组
+        向量：理解-一维数组
+    2.加法和标量乘法
+        加法： 对应位置相加
+        乘法： 标量和每个位置的元素相乘
+    3.矩阵向量（矩阵）乘法[*****]
+        [M行, N列]*[N行, L列] = [M行, L列]
+    4.矩阵乘法性质
+        1.满足结合律，不满足交换律
+    5.单位矩阵
+        对角线为1，其他位置为0的矩阵
+    6.逆
+        矩阵A*矩阵B=单位矩阵I
+        那么A和B就互为逆矩阵
+    7.转置
+        行列互换
+4.6 数组间运算[*]
+    1.数组和数字是直接可以进行运算
+    2.数组和数组
+        需要满足广播机制
+            维度相同
+            shape对应位置为1
+    3.矩阵乘法api
+        np.dot --点乘
+        np.matmul -- 矩阵相乘
+        注意：两者之间在进行矩阵相乘时候，没有区别
+        但是，dot支持矩阵和数字相乘
+
+5.Pandas
+5.1Pandas介绍
+    1.pandas概念
+        开源的数据挖掘库
+        用于数据探索
+        封装了matplotlib,numpy
+    2.案例知识点
+        1.创建DataFrame
+            pd.DataFrame(ndarray)
+        2.创建日期
+            pd.date_range()
+                start -- 开始日期
+                end -- 结束日期
+                periods -- 时间跨度
+                freq -- 统计时间方式
+    3.DataFrame介绍 -- 类比二维数组[***]
+        1.dataframe属性
+            对象.shape
+            对象.index
+            对象.columns
+            对象.values
+            对象.T
+            对象.head()
+            对象.tail()
+        2.dataframe设置索引
+            1.修改行列索引
+                必须整行或者整列去进行修改
+            2.重设索引
+                对象.reset_index()
+            3.设置新索引
+                对象.set_index()
+                如果设置索引是两个的时候就是multiIndex
+    4.MultiIndex和panel -- 类比三维数组[**]
+        1.MultiIndex
+            对象.index
+            对象.index.names
+        2.panel -- 已经弃用,了解
+            直接没法进行查看里面的值,需要通过索引获取
+            对象[:, :, ""]
+    5.Series  -- 一维数组[**]
+        1.创建
+            通过ndarray创建
+            指定索引创建
+            通过字典创建
+        2.属性
+            对象.index
+            对象.values
+
+
+
+
+
+
+
+
